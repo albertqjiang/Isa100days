@@ -67,7 +67,7 @@ lemma "is_in a xs = (exs (\<lambda>x. a=x) xs)"
   done
 
 fun nodups :: "'a list \<Rightarrow> bool" where
-"nodups Nil = True" | "nodups (x # xs) = (\<not>(is_in x xs) \<and> (nodups xs))"
+"nodups Nil = True" | "nodups (x # xs) = ((\<not>(is_in x xs)) \<and> (nodups xs))"
 
 fun del_element :: "'a \<Rightarrow> 'a list \<Rightarrow> 'a list" where
 "del_element x Nil = Nil" | 
@@ -76,14 +76,59 @@ fun del_element :: "'a \<Rightarrow> 'a list \<Rightarrow> 'a list" where
 fun deldups :: "'a list \<Rightarrow> 'a list" where
 "deldups Nil = Nil" | "deldups (x # xs) = (x # (del_element x (deldups xs)))"
 
-lemma [simp]: "length (del_element x xs) \<le> length xs"
+lemma reduction [simp]: "length (del_element x xs) \<le> length xs"
   apply (induct xs)
    apply auto
   done
 
 lemma "length (deldups xs) <= length xs"
+proof (induct xs)
+case Nil
+then show ?case
+  by simp
+next
+  case (Cons a xs)
+  then show ?case
+  proof -
+    have "length (del_element a (deldups xs)) \<le> length xs"
+    by (meson Cons.hyps dual_order.trans reduction)
+    then show ?thesis
+      by simp
+    qed
+qed
+
+lemma del_no [simp]: "\<not> (is_in a (del_element a xs))"
   apply (induct xs)
    apply auto
-  sorry
+  done
+
+lemma [simp]: "del_element a (a # xs) = (del_element a xs)"
+  apply (induct xs)
+   apply auto
+  done
+
+lemma [simp]: "nodups (a # xs) \<Longrightarrow> nodups xs"
+  by simp
+
+lemma no_dup_no_dup [simp]: "nodups xs \<Longrightarrow> (nodups (del_element a xs))"
+proof (induct xs)
+  case Nil
+  then show ?case by simp
+next
+  case (Cons x xs)
+  then show ?case
+    sorry
+qed
+
+
+lemma "nodups (deldups xs)"
+proof (induct xs)
+case Nil
+then show ?case by simp
+next
+  case (Cons a xs)
+  then show ?case by simp
+qed
+  
 
 end
