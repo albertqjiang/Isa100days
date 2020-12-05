@@ -81,7 +81,7 @@ lemma reduction [simp]: "length (del_element x xs) \<le> length xs"
    apply auto
   done
 
-lemma "length (deldups xs) <= length xs"
+theorem "length (deldups xs) <= length xs"
 proof (induct xs)
 case Nil
 then show ?case
@@ -97,31 +97,26 @@ next
     qed
 qed
 
-lemma del_no [simp]: "\<not> (is_in a (del_element a xs))"
+lemma del_no [simp]: "\<not> (is_in x xs) \<Longrightarrow> \<not> (is_in x (del_element a xs))"
   apply (induct xs)
    apply auto
   done
 
-lemma [simp]: "del_element a (a # xs) = (del_element a xs)"
+lemma [simp]: "\<not> is_in a (del_element a xs)"
   apply (induct xs)
    apply auto
   done
-
-lemma [simp]: "nodups (a # xs) \<Longrightarrow> nodups xs"
-  by simp
 
 lemma no_dup_no_dup [simp]: "nodups xs \<Longrightarrow> (nodups (del_element a xs))"
-proof (induct xs)
-  case Nil
+proof (induct xs arbitrary: a rule: nodups.induct)
+  case 1
   then show ?case by simp
 next
-  case (Cons x xs)
-  then show ?case
-    sorry
+  case (2 x xs)
+  then show ?case by simp
 qed
 
-
-lemma "nodups (deldups xs)"
+theorem "nodups (deldups xs)"
 proof (induct xs)
 case Nil
 then show ?case by simp
@@ -129,6 +124,9 @@ next
   case (Cons a xs)
   then show ?case by simp
 qed
-  
+
+theorem "deldups (rev xs) = rev (deldups xs)"
+  nitpick
+  oops
 
 end

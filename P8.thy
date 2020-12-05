@@ -1,4 +1,4 @@
-theory P8 imports Main P6 begin
+theory P9 imports Main P6 begin
 fun ListSum :: "nat list \<Rightarrow> nat" where
 "ListSum Nil = 0" | "ListSum (x # xs) = (x + ListSum xs)"
 
