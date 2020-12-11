@@ -6,12 +6,9 @@ The first ones will be based on [exercises](https://isabelle.in.tum.de/exercises
 
 P1: simple stuff
 
-P2-8: 1.1-1.6, 1.8
+P2-7, 13, 8, 14: 1.1-1.6, 1.7, 1.8, 1.9
 
 P9-10: 3.1-2
 
-P11-2: 4.1-2
+P11-2, 15: 4.1-3
 
-P13: 1.7
-
-P14: 1.9
