@@ -22,7 +22,42 @@ fun merge :: "nat list \<Rightarrow> nat list \<Rightarrow> nat list" where
 fun msort :: "nat list \<Rightarrow> nat list" where
 "msort Nil = Nil" |
 "msort (x # Nil) = (x # Nil)" |
-"msort xs = (merge (take ((length xs) div 2) xs) (drop ((length xs) div 2) xs))"
+"msort xs = (merge (msort (take ((length xs) div 2) xs))
+                   (msort (drop ((length xs) div 2) xs)))"
 
+lemma [simp]: "x \<le> y \<Longrightarrow> le y xs \<Longrightarrow> le x xs"
+  apply (induct xs)
+  apply auto
+  done
+
+lemma [simp]: "le x (merge xs ys) = (le x xs \<and> le x ys)"
+  apply (induct xs ys rule: merge.induct)
+  apply auto
+done
+
+lemma [simp]: "sorted (merge xs ys) = (sorted xs \<and> sorted ys)"
+  apply (induct xs ys rule: merge.induct)
+    apply (auto simp add: linorder_not_le order_less_le)
+  done
+
+theorem "sorted (msort xs)"
+  apply (induct xs rule: msort.induct)
+    apply auto
+  done
+
+lemma [simp]: "count (merge xs ys) a = (count xs a) + (count ys a)"
+  apply (induct xs ys rule: merge.induct)
+    apply auto
+  done
+
+lemma [simp]: "count xs a + count ys a = (count (xs @ ys) a)"
+  apply (induct xs)
+   apply auto
+  done
+
+theorem "count (msort xs) x = count xs x"
+  apply (induct xs rule: msort.induct)
+    apply auto
+  done
 
 end
