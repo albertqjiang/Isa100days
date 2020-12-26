@@ -25,3 +25,5 @@ P23: 2.5
 P24-25: 5.1
 
 P26: 5.2
+
+Day 27: Automata/AutoProj, Automata/DFA
