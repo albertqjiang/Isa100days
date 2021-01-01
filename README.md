@@ -27,3 +27,7 @@ P24-25: 5.1
 P26: 5.2
 
 Day 27: Automata/AutoProj, Automata/DFA
+
+Short pause at the end of December 2020 due to travel. Resumed on Jan 1.
+
+Day 28: Automata/NFA
