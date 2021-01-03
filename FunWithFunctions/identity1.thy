@@ -5,6 +5,7 @@ assumes fff: "\<And>n. f(f(n)) < f(Suc(n))"
 shows "f(n) = n"
 proof -
   { fix m n have key: "m \<ge> n \<Longrightarrow> f(m) \<ge> n"
+  (*This key lemma is such a stroke of genius. How could anyone make this generalisation?*)
   proof (induct n arbitrary: m)
   case 0
     then show ?case by simp
