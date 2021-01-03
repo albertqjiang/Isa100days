@@ -33,3 +33,5 @@ Short pause at the end of December 2020 due to travel. Resumed on Jan 1.
 Day 28: Automata/NFA
 
 Day 29: Automata/FA_N2D_EQUI (not finished)
+
+Day 30: FunWithFunctions/identity1
