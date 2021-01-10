@@ -35,3 +35,5 @@ Day 28: Automata/NFA
 Day 29: Automata/FA_N2D_EQUI (not finished)
 
 Day 30: FunWithFunctions/identity1
+
+Day 31: FunWithFunctions/identity2
